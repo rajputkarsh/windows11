@@ -1,4 +1,8 @@
 /** @type {import('tailwindcss').Config} */
+
+import flowbitePlugin from 'flowbite/plugin'
+import prettierPlugin from 'prettier-plugin-tailwindcss'
+
 module.exports = {
   darkMode: "class",
   content: [
@@ -14,5 +18,5 @@ module.exports = {
       xl: "1440px",
     },
   },
-  plugins: [require("flowbite/plugin"), require("prettier-plugin-tailwindcss")],
+  plugins: [flowbitePlugin, prettierPlugin],
 };
