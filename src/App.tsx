@@ -1,25 +1,47 @@
-import { useState } from 'react'
-import './App.css'
+import { useEffect } from "react";
+import LockScreen from "./pages/lockScreen";
+import DesktopScreen from "./pages/desktop";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setBatteryIsCharging,
+  setBatteryLevel,
+} from "./redux/slices/desktopSlice";
+import { motion } from "framer-motion";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const isScreenLocked = useSelector((state) => state.lockScreen.isLocked);
+  const dispatch = useDispatch();
 
-  return (
-    <>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+  useEffect(() => {
+    const interval = setInterval(() => {
+      navigator?.getBattery().then((battery) => {
+        dispatch(setBatteryIsCharging(battery.charging));
+        dispatch(setBatteryLevel(battery.level));
+
+        battery.addEventListener("chargingchange", () => {
+          dispatch(setBatteryIsCharging(battery.charging));
+          dispatch(setBatteryLevel(battery.level));
+        });
+
+        return () => {
+          battery.removeEventListener("chargingchange", () => {
+            dispatch(setBatteryIsCharging(battery.charging));
+          });
+          battery.disconnect();
+        };
+      });
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [dispatch]);
+
+  return isScreenLocked ? (
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+      <LockScreen />
+    </motion.div>
+  ) : (
+    <DesktopScreen />
+  );
 }
 
-export default App
+export default App;
