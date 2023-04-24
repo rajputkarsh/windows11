@@ -1,15 +1,17 @@
-const imagesIconsApps = (fle: string) => {
+import { AssetType } from "../types";
+
+const imagesIconsApps = (fle: string): string => {
   return `./static/icons/apps/${fle}`;
 };
 
-const imagesProfiles = (fle: string) => {
+const imagesProfiles = (fle: string): string => {
   return `./static/profiles/${fle}`;
 };
-const imagesWallpapers = (fle: string) => {
+const imagesWallpapers = (fle: string): string => {
   return `./static/wallpapers/${fle}`;
 };
 
-const ASSETS = {
+const ASSETS : AssetType = {
   images: {
     icons: {
       apps: {
