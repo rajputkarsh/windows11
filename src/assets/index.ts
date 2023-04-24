@@ -1,12 +1,12 @@
 const imagesIconsApps = (fle: string) => {
-  return require(`./static/icons/apps/${fle}`);
+  return `./static/icons/apps/${fle}`;
 };
 
 const imagesProfiles = (fle: string) => {
-  return require(`./static/profiles/${fle}`);
+  return `./static/profiles/${fle}`;
 };
 const imagesWallpapers = (fle: string) => {
-  return require(`./static/wallpapers/${fle}`);
+  return `./static/wallpapers/${fle}`;
 };
 
 const ASSETS = {

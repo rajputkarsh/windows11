@@ -14,7 +14,7 @@ function App() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      navigator?.getBattery().then((battery) => {
+      navigator?.getBattery().then((battery: any) => {
         dispatch(setBatteryIsCharging(battery.charging));
         dispatch(setBatteryLevel(battery.level));
 
