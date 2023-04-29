@@ -1,5 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { wallpapers } from "../../assets";
+import { LockScreenSliceType, LockScreenActionPayloadType } from "../../types/slice";
 
 export const lockScreenSlice = createSlice({
   name: "lockScreen",
@@ -9,11 +10,11 @@ export const lockScreenSlice = createSlice({
     validPIN: "123456",
   },
   reducers: {
-    setLockScreenWallpaper: (state, action) => {
-      state.wallpaper = action.payload;
+    setLockScreenWallpaper: (state: LockScreenSliceType, action: PayloadAction<LockScreenActionPayloadType>) => {
+      state.wallpaper = action.payload as string;
     },
-    setDesktopLocked: (state, action) => {
-      state.isLocked = action.payload;
+    setDesktopLocked: (state: LockScreenSliceType, action: PayloadAction<LockScreenActionPayloadType>) => {
+      state.isLocked = action.payload as boolean;
     },
   },
 });

@@ -1,9 +1,10 @@
 import { icons } from "../../assets";
 import { CommandLineApp , FileExplorerApp, SettingsApp } from "../../components";
 import CONSTANTS from "../../constants";
+import { StateType } from "../../types";
 import { setNewActiveWindow } from "../slices/desktopSlice";
 
-const initialState = {
+const initialState: StateType = {
   activeWindows: [],
   pinnedApps: [
     {
@@ -11,7 +12,7 @@ const initialState = {
       icon: icons.apps.winFileExplorer,
       width: 25,
       height: 25,
-      onClick: (e, dispatch) => {
+      onClick: (_e, dispatch) => {
         dispatch(
           setNewActiveWindow({
             title: "File Explorer",
@@ -60,7 +61,7 @@ const initialState = {
       icon: icons.apps.winSettings,
       width: 28,
       height: 28,
-      onClick: (e, dispatch) => {
+      onClick: (_e, dispatch) => {
         dispatch(
           setNewActiveWindow({
             title: "Settings",
@@ -137,7 +138,7 @@ const initialState = {
       icon: icons.apps.winCMD,
       width: 35,
       height: 35,
-      onClick: (e, dispatch) => {
+      onClick: (_e, dispatch) => {
         dispatch(
           setNewActiveWindow({
             title: "C:\\Windows\\system32\\cmd.exe",
@@ -164,7 +165,7 @@ const initialState = {
       icon: icons.apps.winFileExplorer,
       width: 35,
       height: 35,
-      onClick: (e, dispatch) => {
+      onClick: (_e, dispatch) => {
         dispatch(
           setNewActiveWindow({
             title: "File Explorer",
@@ -198,7 +199,7 @@ const initialState = {
       icon: icons.apps.winSettings,
       width: 35,
       height: 35,
-      onClick: (e, dispatch) => {
+      onClick: (_e, dispatch) => {
         dispatch(
           setNewActiveWindow({
             title: "Settings",
