@@ -3,7 +3,7 @@ import React from "react";
 type MouseClickEventType = React.MouseEvent<HTMLElement>;
 type DispatchType = React.Dispatch<React.SetStateAction<unknown>>;
 
-type OnClickEventType = (() => void) | ((e: MouseEventType, dispatch: DispatchType) => void);
+type OnClickEventType = (() => void) | ((e: MouseClickEventType, dispatch: DispatchType) => void);
 
 // active windows
 export type WindowType = {
