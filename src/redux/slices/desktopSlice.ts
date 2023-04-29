@@ -1,6 +1,8 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { profiles, wallpapers } from "../../assets";
 import initialState from "../store/initialState";
+import { DesktopActionPayloadType, DesktopSliceType } from "../../types/slice";
+import { WindowType } from "../../types/state";
 
 const desktopSlice = createSlice({
   name: "desktop",
@@ -17,13 +19,13 @@ const desktopSlice = createSlice({
     shortcutApps: [...initialState.shortcutApps],
   },
   reducers: {
-    setDesktopWallpaper: (state, action) => {
-      state.wallpaper = wallpapers[action.payload];
+    setDesktopWallpaper: (state: DesktopSliceType, action: PayloadAction<DesktopActionPayloadType>) => {
+      state.wallpaper = wallpapers[action.payload as number];
     },
-    setProfileImage: (state, action) => {
-      state.profileImage = action.payload;
+    setProfileImage: (state: DesktopSliceType, action: PayloadAction<DesktopActionPayloadType>) => {
+      state.profileImage = action.payload as string;
     },
-    setNewActiveWindow: (state, action) => {
+    setNewActiveWindow: (state: DesktopSliceType, action: PayloadAction<DesktopActionPayloadType>) => {
       const {
         height = "80vh",
         width = "80vw",
@@ -33,9 +35,9 @@ const desktopSlice = createSlice({
         minimized = false,
         maximized = false,
         Component = () => null,
-      } = action.payload;
+      } = action.payload as WindowType;
 
-      const newWindow = {
+      const newWindow: WindowType = {
         id: state.activeWindows.length + 1,
         height,
         width,
@@ -49,17 +51,17 @@ const desktopSlice = createSlice({
 
       state.activeWindows.push(newWindow);
     },
-    removeActiveWindow: (state, action) => {
+    removeActiveWindow: (state: DesktopSliceType, action: PayloadAction<DesktopActionPayloadType>) => {
       const filtered = state.activeWindows.filter(
-        (win) => win.id !== action.payload
+        (win: WindowType) => win.id !== action.payload
       );
 
       state.activeWindows = filtered;
     },
-    minimizeActiveWindow: (state, action) => {
-      const { id, minimized } = action.payload;
+    minimizeActiveWindow: (state: DesktopSliceType, action: PayloadAction<DesktopActionPayloadType>) => {
+      const { id, minimized } = action.payload as WindowType;
 
-      const filtered = state.activeWindows.map((win) => {
+      const filtered = state.activeWindows.map((win: WindowType) => {
         if (win.id === id) {
           win.minimized = minimized;
         }
@@ -68,10 +70,10 @@ const desktopSlice = createSlice({
 
       state.activeWindows = filtered;
     },
-    maximizeActiveWindow: (state, action) => {
+    maximizeActiveWindow: (state: DesktopSliceType, action: PayloadAction<DesktopActionPayloadType>) => {
       const id = action.payload;
 
-      const filtered = state.activeWindows.map((win) => {
+      const filtered = state.activeWindows.map((win: WindowType) => {
         if (win.id === id) {
           win.maximized = !win.maximized;
         }
@@ -80,10 +82,10 @@ const desktopSlice = createSlice({
 
       state.activeWindows = filtered;
     },
-    cancelMaximizeActiveWindow: (state, action) => {
+    cancelMaximizeActiveWindow: (state: DesktopSliceType, action: PayloadAction<DesktopActionPayloadType>) => {
       const id = action.payload;
 
-      const filtered = state.activeWindows.map((win) => {
+      const filtered = state.activeWindows.map((win: WindowType) => {
         if (win.id === id) {
           win.maximized = false;
         }
@@ -92,14 +94,14 @@ const desktopSlice = createSlice({
 
       state.activeWindows = filtered;
     },
-    setWinModalToggled: (state, actions) => {
-      state.winModalToggled = actions.payload;
+    setWinModalToggled: (state: DesktopSliceType, action: PayloadAction<DesktopActionPayloadType>) => {
+      state.winModalToggled = action.payload as boolean;
     },
-    setBatteryIsCharging: (state, action) => {
-      state.battery.isCharging = action.payload;
+    setBatteryIsCharging: (state: DesktopSliceType, action: PayloadAction<DesktopActionPayloadType>) => {
+      state.battery.isCharging = action.payload as boolean;
     },
-    setBatteryLevel: (state, action) => {
-      state.battery.level = action.payload;
+    setBatteryLevel: (state: DesktopSliceType, action: PayloadAction<DesktopActionPayloadType>) => {
+      state.battery.level = action.payload as number;
     },
   },
 });
