@@ -36,19 +36,18 @@ import { RiComputerFill } from "react-icons/ri";
 import CONSTANTS from "../../constants";
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { WindowType } from "../../types/state";
+
+const currentDate = new Date();
 
 const blueprint = [
   {
     name: "Utkarsh-Resume.pdf",
     size: "1.68 MB",
-    modify: "16/11/2021 13:44",
-  },
-  {
-    name: "Utkarsh-Resume.pdf",
-    size: "28.8 KB",
-    modify: "25/11/2021 17:56",
+    modify: `${currentDate.toLocaleDateString()} ${currentDate.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })}`,
   },
 ];
+
 
 const FileExplorerApp = ({
   id,
@@ -57,9 +56,8 @@ const FileExplorerApp = ({
   width = "80vw",
   x = 10,
   y = 10,
-  minimized = false,
   maximized = false,
-}) => {
+} : WindowType) => {
   const [files] = useState([
     ...blueprint,
     ...blueprint,
@@ -76,10 +74,10 @@ const FileExplorerApp = ({
   return (
     <Draggable
       handle="#draggable"
-      defaultPosition={{ x: maximized ? 0 : y, y: maximized ? 0 : x }}
-      position={maximized ? { x: 0, y: 0 } : null}
+      defaultPosition={{ x: maximized ? 0 : y as number, y: maximized ? 0 : x as number }}
+      position={maximized ? { x: 0, y: 0 } : undefined}
       onDrag={() => {
-        dispatch(cancelMaximizeActiveWindow(id));
+        dispatch(cancelMaximizeActiveWindow(id as string));
       }}
     >
       <motion.div
@@ -121,7 +119,7 @@ const FileExplorerApp = ({
               className="flex items-center p-3 ml-2 hover:bg-white hover:bg-opacity-10"
               title={maximized ? "Restore" : "Maximize"}
               onClick={() => {
-                dispatch(maximizeActiveWindow(id));
+                dispatch(maximizeActiveWindow(id as string));
               }}
             >
               {maximized ? <VscChromeRestore /> : <IoIosSquareOutline />}
@@ -130,7 +128,7 @@ const FileExplorerApp = ({
               className="flex items-center p-3 ml-2 hover:bg-red-500"
               title="Close"
               onClick={() => {
-                dispatch(removeActiveWindow(id));
+                dispatch(removeActiveWindow(id as string));
               }}
             >
               <IoCloseOutline />

@@ -1,4 +1,7 @@
+
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux/es/exports";
+import { ReduxState } from "../../types";
 import {
   TbBatteryCharging2,
   TbBattery1,
@@ -7,14 +10,17 @@ import {
   TbBattery4,
   TbBatteryOff,
 } from "react-icons/tb";
-import { useEffect, useState } from "react";
 
-const BatteryIcon = (props) => {
-  const isCharging = useSelector((state) => state.desktop.battery.isCharging);
-  const batteryLevel = useSelector((state) => state.desktop.battery.level);
-  const [title, setTitle] = useState("");
+type BatteryIconProps = {
+  size?: number;
+}
 
-  const _setTitleProp = (isCharging, batteryLevel) => {
+const BatteryIcon = (props: BatteryIconProps): JSX.Element | null => {
+  const isCharging = useSelector((state: ReduxState) => state.desktop.battery.isCharging);
+  const batteryLevel = useSelector((state: ReduxState) => state.desktop.battery.level);
+  const [title, setTitle] = useState<string>("");
+
+  const _setTitleProp = (isCharging: boolean, batteryLevel: number): void => {
     if (isCharging) {
       setTitle(
         `Battery status: ${(batteryLevel * 100).toFixed(
@@ -47,7 +53,7 @@ const BatteryIcon = (props) => {
   if (batteryLevel > 0.5 && batteryLevel <= 0.75) {
     return <TbBattery3 {...props} title={title} />;
   }
-  if (batteryLevel > 0.75 && batteryLevel <= 1) {
+  else{
     return <TbBattery4 {...props} title={title} />;
   }
 };

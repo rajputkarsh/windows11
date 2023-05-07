@@ -3,11 +3,11 @@ import React from "react";
 type MouseClickEventType = React.MouseEvent<HTMLElement>;
 type DispatchType = React.Dispatch<React.SetStateAction<unknown>>;
 
-type OnClickEventType = (() => void) | ((e: MouseClickEventType, dispatch: DispatchType) => void);
+export type OnClickEventType = (() => void) | ((e: MouseClickEventType, dispatch: DispatchType | Dispatch<AnyAction>) => void);
 
 // active windows
 export type WindowType = {
-    id: number,
+    id?: string | number,
     height: number | string,
     width: number | string,
     x: number | string,
@@ -15,13 +15,14 @@ export type WindowType = {
     title:  null | string,
     minimized:  null | boolean,
     maximized:  null | boolean,
-    Component: null | React.FunctionComponent,    
+    Component?: null | React.FunctionComponent,    
 }
 
 export type ActiveWindows = Array<WindowType>;
 
 // pinned apps
 export type PinnedApp = {
+    id?: string | number,
     name: string,
     icon: string,
     width: string | number,
@@ -32,11 +33,13 @@ export type PinnedApp = {
 export type PinnedApps = Array<PinnedApp>;
 
 // shortcut apps
-type ShortcutApp = {
+export type ShortcutApp = {
+    id?: string | number,
+    className?: string,
     name: string,
     icon: string,
-    width: string | number,
-    height: string | number,
+    width?: string | number,
+    height?: string | number,
     onClick: OnClickEventType,
 }
 

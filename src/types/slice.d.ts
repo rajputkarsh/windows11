@@ -1,3 +1,4 @@
+import { NullableMappedType } from "./helpers";
 import { ActiveWindows, PinnedApps, ShortcutApps, WindowType } from "./state";
 
 export type LockScreenSliceType = {
@@ -22,4 +23,11 @@ export type DesktopSliceType = {
     shortcutApps: ShortcutApps,
 };
 
-export type DesktopActionPayloadType = string | boolean | number | WindowType;
+export type DesktopActionPayloadType = string | boolean | number | Partial<NullableMappedType<WindowType>>;
+
+type ReduxState = {
+    desktop : DesktopSliceType,
+    lockScreen: LockScreenSliceType
+}
+
+export default ReduxState;

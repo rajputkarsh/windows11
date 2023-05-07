@@ -1,5 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
+import { ShortcutApp } from "../../types/state";
 
 const WindowsModalPinnedAppbutton = ({
   className = "",
@@ -8,7 +9,7 @@ const WindowsModalPinnedAppbutton = ({
   onClick,
   width = 35,
   height = 35,
-}) => {
+}: ShortcutApp) => {
   const dispatch = useDispatch();
 
   return (

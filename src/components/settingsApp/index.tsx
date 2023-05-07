@@ -15,6 +15,8 @@ import {
 } from "../../redux/slices/desktopSlice";
 import { wallpapers } from "../../assets";
 import { motion } from "framer-motion";
+import { ReduxState } from "../../types";
+import { WindowType } from "../../types/state";
 
 const SettingsApp = ({
   id,
@@ -23,20 +25,19 @@ const SettingsApp = ({
   width = "80vw",
   x = 10,
   y = 10,
-  minimized = false,
   maximized = false,
-}) => {
-  const profileImage = useSelector((state) => state.desktop.profileImage);
-  const wallpaperActive = useSelector((state) => state.desktop.wallpaper);
+}: WindowType) => {
+  const profileImage = useSelector((state: ReduxState) => state.desktop.profileImage);
+  const wallpaperActive = useSelector((state: ReduxState) => state.desktop.wallpaper);
   const dispatch = useDispatch();
 
   return (
     <Draggable
       handle="#draggable"
-      defaultPosition={{ x: maximized ? 0 : y, y: maximized ? 0 : x }}
-      position={maximized ? { x: 0, y: 0 } : null}
-      onDrag={(e, data) => {
-        dispatch(cancelMaximizeActiveWindow(id));
+      defaultPosition={{ x: maximized ? 0 : y as number, y: maximized ? 0 : x as number }}
+      position={maximized ? { x: 0, y: 0 } : undefined}
+      onDrag={() => {
+        dispatch(cancelMaximizeActiveWindow(id as string));
       }}
     >
       <motion.div
@@ -73,7 +74,7 @@ const SettingsApp = ({
               className="flex items-center p-3 ml-2 hover:bg-white hover:bg-opacity-10"
               title={maximized ? "Restore" : "Maximize"}
               onClick={() => {
-                dispatch(maximizeActiveWindow(id));
+                dispatch(maximizeActiveWindow(id as string));
               }}
             >
               {maximized ? <VscChromeRestore /> : <IoIosSquareOutline />}
@@ -82,7 +83,7 @@ const SettingsApp = ({
               className="flex items-center p-3 ml-2 hover:bg-red-500"
               title="Close"
               onClick={() => {
-                dispatch(removeActiveWindow(id));
+                dispatch(removeActiveWindow(id as string));
               }}
             >
               <IoCloseOutline />

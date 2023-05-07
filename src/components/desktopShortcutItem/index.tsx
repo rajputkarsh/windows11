@@ -1,6 +1,9 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { FaExternalLinkSquareAlt } from "react-icons/fa";
+import { NullableMappedType } from "../../types/helpers";
+import { ShortcutApp } from "../../types/state";
+
 
 const DesktopShortcutItem = ({
   className = "",
@@ -9,7 +12,7 @@ const DesktopShortcutItem = ({
   onClick,
   width = 35,
   height = 35,
-}) => {
+} : ShortcutApp) => {
   const dispatch = useDispatch();
 
   return (

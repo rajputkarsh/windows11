@@ -236,7 +236,7 @@ const initialState: StateType = {
     },
     {
       name: "Portfolio",
-      icon: icons.apps.portfolio,
+      icon: icons.apps.logo,
       width: 35,
       height: 35,
       onClick: () => {

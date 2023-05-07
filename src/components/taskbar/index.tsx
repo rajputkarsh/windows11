@@ -12,10 +12,11 @@ import { motion } from "framer-motion";
 import { BiBluetooth, BiMoon } from "react-icons/bi";
 import { IoAccessibilityOutline, IoAirplaneOutline } from "react-icons/io5";
 import { TbBatteryEco, TbBrightnessDown } from "react-icons/tb";
+import { ReduxState } from "../../types";
 
 const Taskbar = () => {
-  const pinnedApps = useSelector((state) => state.desktop.pinnedApps);
-  const winModalToggled = useSelector((state) => state.desktop.winModalToggled);
+  const pinnedApps = useSelector((state: ReduxState) => state.desktop.pinnedApps);
+  const winModalToggled = useSelector((state: ReduxState) => state.desktop.winModalToggled);
 
   const [hours, setHours] = useState(moment().format("HH[:]mm"));
   const [date, setDate] = useState(moment().format("DD[/]MM[/]YYYY"));
