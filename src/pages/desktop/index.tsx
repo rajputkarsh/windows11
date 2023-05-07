@@ -1,12 +1,11 @@
 import { useSelector } from "react-redux";
 import { Taskbar, DesktopShortcutList, WindowsModal } from "../../components";
 import { motion } from "framer-motion";
+import { ReduxState } from "../../types";
 
 const DesktopScreen = () => {
-  const wallpaper = useSelector((state) => state.desktop.wallpaper);
-  const activeWindows = useSelector((state) => state.desktop.activeWindows);
-
-  console.log(`active windows - `, activeWindows);
+  const wallpaper = useSelector((state: ReduxState) => state.desktop.wallpaper);
+  const activeWindows = useSelector((state: ReduxState) => state.desktop.activeWindows);
 
   return (
     <motion.div

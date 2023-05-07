@@ -1,6 +1,12 @@
 import React from "react";
 
-const Notification = ({ from, image, message }) => {
+type NotificationType = Partial<{
+  from: string,
+  image: string,
+  message: string | JSX.Element,
+}>
+
+const Notification = ({ from, image, message }: NotificationType) => {
   return (
     <div
       className="w-full max-w-xs p-4 text-gray-900 bg-white rounded-lg shadow"

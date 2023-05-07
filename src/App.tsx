@@ -7,14 +7,16 @@ import {
   setBatteryLevel,
 } from "./redux/slices/desktopSlice";
 import { motion } from "framer-motion";
+import { ReduxState } from "./types";
 
 function App() {
-  const isScreenLocked = useSelector((state) => state.lockScreen.isLocked);
+  const isScreenLocked = useSelector((state: ReduxState) => state.lockScreen.isLocked);
   const dispatch = useDispatch();
 
   useEffect(() => {
     const interval = setInterval(() => {
-      navigator?.getBattery().then((battery: any) => {
+      
+      (window.navigator as any)?.getBattery().then((battery: {[key: string]: any}) => {
         dispatch(setBatteryIsCharging(battery.charging));
         dispatch(setBatteryLevel(battery.level));
 

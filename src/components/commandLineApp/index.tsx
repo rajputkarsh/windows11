@@ -14,26 +14,31 @@ import {
   removeActiveWindow,
 } from "../../redux/slices/desktopSlice";
 
+type Command = {
+  command?: string | null,
+  output?: JSX.Element | string | null,
+  currentDirectory?: string | null,  
+}
+
 const CommandLineApp = ({
-  id,
+  id = "",
   title = "",
   height = "80vh",
   width = "80vw",
   x = 10,
   y = 10,
-  minimized = false,
   maximized = false,
-}) => {
-  const [terminalHistory, setTerminalHistory] = useState([]);
+} ) => {
+  const [terminalHistory, setTerminalHistory] = useState<Array<Command>>([]);
   const [currentTerminalDirectory, setCurrentTerminalDirectory] =
     useState("C:\\Users\\Utkarsh");
 
   const dispatch = useDispatch();
 
-  const onKeydownTerminalInput = (e) => {
+  const onKeydownTerminalInput = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       // rules for the command
-      const command = e.target.value;
+      const command = e.currentTarget.value;
       let output = null;
       let ignoreDefaultError = false;
 
@@ -44,7 +49,7 @@ const CommandLineApp = ({
 
       if (command === "clear" || command === "cls") {
         setTerminalHistory([]);
-        e.target.value = "";
+        e.currentTarget.value = "";
         return;
       }
 
@@ -135,7 +140,7 @@ const CommandLineApp = ({
           currentDirectory: currentTerminalDirectory,
         },
       ]);
-      e.target.value = "";
+      e.currentTarget.value = "";
     }
   };
 
@@ -143,8 +148,8 @@ const CommandLineApp = ({
     <Draggable
       handle="#draggable"
       defaultPosition={{ x: maximized ? 0 : y, y: maximized ? 0 : x }}
-      position={maximized ? { x: 0, y: 0 } : null}
-      onDrag={(e, data) => {
+      position={maximized ? { x: 0, y: 0 } : undefined}
+      onDrag={() => {
         dispatch(cancelMaximizeActiveWindow(id));
       }}
     >

@@ -4,38 +4,39 @@ import WindowsModalPinnedAppbutton from "../windowsModalPinnedAppbutton";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { setWinModalToggled } from "../../redux/slices/desktopSlice";
+import { ReduxState } from "../../types";
 
 const WindowsModal = () => {
-  const originShortcutApps = useSelector((state) => state.desktop.pinnedApps);
-  const profileImage = useSelector((state) => state.desktop.profileImage);
-  const winModalToggled = useSelector((state) => state.desktop.winModalToggled);
+  const originShortcutApps = useSelector((state: ReduxState) => state.desktop.pinnedApps);
+  const profileImage = useSelector((state: ReduxState) => state.desktop.profileImage);
+  const winModalToggled = useSelector((state: ReduxState) => state.desktop.winModalToggled);
   const [shortcutApps, setShortcutApps] = useState(originShortcutApps);
 
   const dispatch = useDispatch();
 
-  const onChangeSearchText = ({ target }) => {
-    if (target.value === "") {
+  const onChangeSearchText = ({ currentTarget }: React.FormEvent<HTMLInputElement>) => {
+    if (currentTarget.value === "") {
       setShortcutApps(originShortcutApps);
       return;
     }
 
     const filteredApps = originShortcutApps.filter((app) =>
-      app.name.toLowerCase().includes(target.value.toLowerCase())
+      app.name.toLowerCase().includes(currentTarget.value.toLowerCase())
     );
     setShortcutApps(filteredApps);
   };
 
   useEffect(() => {
-    const dismissHandle = (e) => {
+    const dismissHandle = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
-        dispatch(setWinModalToggled());
+        dispatch(setWinModalToggled(false));
       }
     };
 
     window.addEventListener("keydown", dismissHandle);
 
     return () => window.addEventListener("keydown", dismissHandle);
-  }, []);
+  }, [dispatch]);
 
   return (
     <motion.div

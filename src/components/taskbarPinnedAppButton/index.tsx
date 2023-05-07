@@ -1,5 +1,6 @@
-import React from "react";
+
 import { useDispatch } from "react-redux";
+import { ShortcutApp } from "../../types/state";
 
 const TaskbarAppButton = ({
   className,
@@ -8,7 +9,7 @@ const TaskbarAppButton = ({
   onClick,
   width = 28,
   height = 28,
-}) => {
+}: ShortcutApp) => {
   const dispatch = useDispatch();
 
   return (

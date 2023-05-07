@@ -1,8 +1,9 @@
 import { useSelector } from "react-redux";
 import DesktopShortcutItem from "../desktopShortcutItem";
+import { ReduxState } from "../../types";
 
 const DesktopShortcutList = () => {
-  const shortcutApps = useSelector((state) => state.desktop.shortcutApps);
+  const shortcutApps = useSelector((state: ReduxState) => state.desktop.shortcutApps);
 
   return (
     <>
