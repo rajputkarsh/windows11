@@ -8,6 +8,7 @@ import { IoAccessibilityOutline, IoPower } from "react-icons/io5";
 import { setDesktopLocked } from "../../redux/slices/lockScreenSlice";
 import { motion } from "framer-motion";
 import { profiles } from "../../assets";
+import { ReduxState } from "../../types";
 
 const CONFIGS = {
   loadingAfterLoginIsSuccessOnMs: 1000,
@@ -23,9 +24,9 @@ const promiseTimeout = (ms = 3000) =>
   new Promise((resolve) => setTimeout(resolve, ms));
 
 const LockScreen = () => {
-  const wallpaper = useSelector((state) => state.lockScreen.wallpaper);
-  const profileImage = useSelector((state) => state.desktop.profileImage);
-  const validPIN = useSelector((state) => state.lockScreen.validPIN);
+  const wallpaper = useSelector((state: ReduxState) => state.lockScreen.wallpaper);
+  const profileImage = useSelector((state: ReduxState) => state.desktop.profileImage);
+  const validPIN = useSelector((state: ReduxState) => state.lockScreen.validPIN);
 
   const [loginIsSuccess, setLoginIsSuccess] = useState(false);
   const [PINInputScreen, setPINInputScreen] = useState(false);
@@ -43,9 +44,9 @@ const LockScreen = () => {
 
   const dispatch = useDispatch();
 
-  const changePINHandler = ({ target }) => {
-    target.value = target.value.trim();
-    const PIN = target.value;
+  const changePINHandler = ({ currentTarget }: React.ChangeEvent<HTMLInputElement> | React.KeyboardEvent<HTMLInputElement>) => {
+    currentTarget.value = currentTarget.value.trim();
+    const PIN = currentTarget.value;
 
     if (PIN.length >= 6) {
       if (PIN === validPIN) {
@@ -81,7 +82,7 @@ const LockScreen = () => {
       setDayDateMonth(current.dayDateMonth);
     }, 1000);
 
-    const keydownEventHandler = (e) => {
+    const keydownEventHandler = (e: KeyboardEvent) => {
       if (
         e.code === "Space" ||
         e.code === "Enter" ||

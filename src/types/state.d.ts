@@ -15,7 +15,7 @@ export type WindowType = {
     title:  null | string,
     minimized:  null | boolean,
     maximized:  null | boolean,
-    Component?: null | React.FunctionComponent,    
+    Component?: typeof React.FunctionComponent,    
 }
 
 export type ActiveWindows = Array<WindowType>;

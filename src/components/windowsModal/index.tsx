@@ -27,7 +27,7 @@ const WindowsModal = () => {
   };
 
   useEffect(() => {
-    const dismissHandle = (e: { key: string; }) => {
+    const dismissHandle = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         dispatch(setWinModalToggled(false));
       }
@@ -36,7 +36,7 @@ const WindowsModal = () => {
     window.addEventListener("keydown", dismissHandle);
 
     return () => window.addEventListener("keydown", dismissHandle);
-  }, []);
+  }, [dispatch]);
 
   return (
     <motion.div

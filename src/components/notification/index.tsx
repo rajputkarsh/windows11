@@ -3,7 +3,7 @@ import React from "react";
 type NotificationType = Partial<{
   from: string,
   image: string,
-  message: string,
+  message: string | JSX.Element,
 }>
 
 const Notification = ({ from, image, message }: NotificationType) => {
