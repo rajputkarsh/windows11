@@ -51,4 +51,8 @@ export type StateType = {
     shortcutApps: ShortcutApps,
 };
 
+export type LockScreenType = {
+    handleEnterFullScreen: () => void
+};
+
 export default StateType;

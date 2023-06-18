@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import LockScreen from "./pages/lockScreen";
 import DesktopScreen from "./pages/desktop";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,10 +8,19 @@ import {
 } from "./redux/slices/desktopSlice";
 import { motion } from "framer-motion";
 import { ReduxState } from "./types";
-
+import { FullScreen, useFullScreenHandle } from "react-full-screen"
 function App() {
+  const handleFullScreen = useFullScreenHandle();
+  const [isFullScreen, setIsFullScreen] = useState<boolean>(false);
   const isScreenLocked = useSelector((state: ReduxState) => state.lockScreen.isLocked);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch(); 
+
+  const handleEnterFullScreen = () => {
+    if (!handleFullScreen.active) {
+      handleFullScreen.enter();
+      setIsFullScreen(true);
+    }
+  }
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -37,9 +46,10 @@ function App() {
     return () => clearInterval(interval);
   }, [dispatch]);
 
+
   return isScreenLocked ? (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-      <LockScreen />
+      <LockScreen handleEnterFullScreen={handleEnterFullScreen} />
     </motion.div>
   ) : (
     <DesktopScreen />
