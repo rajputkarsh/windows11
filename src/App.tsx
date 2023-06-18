@@ -8,17 +8,15 @@ import {
 } from "./redux/slices/desktopSlice";
 import { motion } from "framer-motion";
 import { ReduxState } from "./types";
-import { FullScreen, useFullScreenHandle } from "react-full-screen"
+import { useFullScreenHandle } from "react-full-screen"
 function App() {
   const handleFullScreen = useFullScreenHandle();
-  const [isFullScreen, setIsFullScreen] = useState<boolean>(false);
   const isScreenLocked = useSelector((state: ReduxState) => state.lockScreen.isLocked);
   const dispatch = useDispatch(); 
 
   const handleEnterFullScreen = () => {
     if (!handleFullScreen.active) {
       handleFullScreen.enter();
-      setIsFullScreen(true);
     }
   }
 

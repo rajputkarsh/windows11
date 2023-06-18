@@ -1,7 +1,5 @@
-import React from "react";
 import { useDispatch } from "react-redux";
 import { FaExternalLinkSquareAlt } from "react-icons/fa";
-import { NullableMappedType } from "../../types/helpers";
 import { ShortcutApp } from "../../types/state";
 
 

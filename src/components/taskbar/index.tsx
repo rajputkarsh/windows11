@@ -45,7 +45,7 @@ const Taskbar = () => {
           <TaskbarPinnedAppButton
             name="Start"
             icon="https://img.icons8.com/fluency/344/windows-11.png"
-            onClick={(e, dispatch) => {
+            onClick={(_, dispatch) => {
               dispatch(setWinModalToggled(!winModalToggled));
             }}
           />
