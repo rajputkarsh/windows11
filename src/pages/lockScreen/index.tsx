@@ -9,6 +9,7 @@ import { setDesktopLocked } from "../../redux/slices/lockScreenSlice";
 import { motion } from "framer-motion";
 import { profiles } from "../../assets";
 import { ReduxState } from "../../types";
+import { LockScreenType } from "../../types/state";
 
 const CONFIGS = {
   loadingAfterLoginIsSuccessOnMs: 1000,
@@ -23,24 +24,20 @@ const CONFIGS = {
 const promiseTimeout = (ms = 3000) =>
   new Promise((resolve) => setTimeout(resolve, ms));
 
-const LockScreen = () => {
+const LockScreen = ({ handleEnterFullScreen } : LockScreenType) => {
   const wallpaper = useSelector((state: ReduxState) => state.lockScreen.wallpaper);
   const profileImage = useSelector((state: ReduxState) => state.desktop.profileImage);
   const validPIN = useSelector((state: ReduxState) => state.lockScreen.validPIN);
 
-  const [loginIsSuccess, setLoginIsSuccess] = useState(false);
-  const [PINInputScreen, setPINInputScreen] = useState(false);
-  const [PINTextIsShowed, setPINTextIsShowed] = useState(false);
-  const [PINAttemptIsWrong, setPINAttemptIsWrong] = useState(false);
-  const [helpForgotPIN, setHelpForgotPIN] = useState(false);
+  const [loginIsSuccess, setLoginIsSuccess] = useState<boolean>(false);
+  const [PINInputScreen, setPINInputScreen] = useState<boolean>(false);
+  const [PINTextIsShowed, setPINTextIsShowed] = useState<boolean>(false);
+  const [PINAttemptIsWrong, setPINAttemptIsWrong] = useState<boolean>(false);
+  const [helpForgotPIN, setHelpForgotPIN] = useState<boolean>(false);
 
-  const [hours, setHours] = useState(moment().format(CONFIGS.timeFormat.hours));
-  const [minutes, setMinutes] = useState(
-    moment().format(CONFIGS.timeFormat.minutes)
-  );
-  const [dayDateMonth, setDayDateMonth] = useState(
-    moment().format(CONFIGS.timeFormat.dayDateMonth)
-  );
+  const [hours, setHours] = useState<string>(moment().format(CONFIGS.timeFormat.hours));
+  const [minutes, setMinutes] = useState<string>(moment().format(CONFIGS.timeFormat.minutes));
+  const [dayDateMonth, setDayDateMonth] = useState<string>(moment().format(CONFIGS.timeFormat.dayDateMonth));
 
   const dispatch = useDispatch();
 
@@ -51,12 +48,12 @@ const LockScreen = () => {
     if (PIN.length >= 6) {
       if (PIN === validPIN) {
         setLoginIsSuccess(true);
-
         setTimeout(() => {
           setPINTextIsShowed(false);
           setPINInputScreen(false);
           dispatch(setDesktopLocked(false));
           setLoginIsSuccess(false);
+          handleEnterFullScreen();
         }, CONFIGS.loadingAfterLoginIsSuccessOnMs);
         return;
       }
@@ -221,7 +218,7 @@ const LockScreen = () => {
                         );
                       }}
                     >
-                      I forgot my PIN
+                      Forgot PIN ?
                     </div>
                   </>
                 )}
@@ -254,9 +251,9 @@ const LockScreen = () => {
             image={profiles.img}
             message={
               <>
-                Hello There!
-                <br /> The Secret PIN is{" "}
-                <span className="font-semibold">{validPIN}</span>
+                Hey!
+                <br /> Your PIN is{" "}
+                <span className="font-bold">{validPIN}</span>
               </>
             }
           />
