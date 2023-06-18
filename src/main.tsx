@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { Provider } from "react-redux";
 import { store } from "./redux";
 import App from './App.tsx';
+import * as serviceWorkerHandler from "./serviceWorker";
 import './index.css';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
@@ -11,4 +12,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
       <App />
     </Provider>    
   </React.StrictMode>,
-)
+);
+
+serviceWorkerHandler.register({});
+
