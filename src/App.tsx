@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import LockScreen from "./pages/lockScreen";
 import DesktopScreen from "./pages/desktop";
 import { useDispatch, useSelector } from "react-redux";
