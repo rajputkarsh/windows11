@@ -43,7 +43,7 @@ registerRoute(
 
     return true;
   },
-  createHandlerBoundToURL(import.meta.env.PUBLIC_URL + "/index.html")
+  createHandlerBoundToURL(window.location.href)
 );
 
 // An example runtime caching route for requests that aren't handled by the
