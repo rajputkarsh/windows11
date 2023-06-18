@@ -39,7 +39,6 @@ workbox.routing.registerRoute(
 
     return true;
   },
-  workbox.precaching.createHandlerBoundToURL('https://windows-11.utkarsh.app')
 );
 
 // An example runtime caching route for requests that aren't handled by the
